@@ -1,10 +1,11 @@
 import './App.css'
 import Pacote from './Pacote'
 import type { PacoteType } from './types'
+import { useState } from 'react'
 const data:Array<PacoteType> = [
   {
     id:'829d5f7a-b96d-457c-9c66-9b224b3e583e',
-    largura: 20.0,
+    largura: 50.0,
     altura: 30.0,
     profundidade: 40.0,
     peso: 2.34
@@ -19,11 +20,24 @@ const data:Array<PacoteType> = [
 ]
 
 function App() {
+  const [pacotes, setPacotes] = useState(data);
+
+  function excluirPacote(id: string){
+//    const novoPacotes = [];
+//    for(let i = 0;i < pacotes.length; i++){
+//      if (pacotes[i] !== pacote){
+//        novoPacotes.push(pacotes[i])
+//      }
+//    }
+//    setPacotes(novoPacotes);
+  setPacotes(pacotes.filter(p=>p.id !== id));
+  }
+
   return (
     <section>
       <h2>Pacotes</h2>
       <div className='pacotes'>
-        {data.map(p => <Pacote pacote={p} key={p.id}/>)}
+        {data.map(p => <Pacote pacote={p} key={p.id} acaoExcluir={excluirPacote}/>)}
       </div>
     </section>
   )
